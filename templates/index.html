@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}首页{% endblock %}
+
+{% block css %}
+
+<!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+
+        <style>
+        #box1 {
+            width: 600px;
+            margin: 20px auto;
+        }
+
+        #box1 p {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        #box2 {
+            width: 250px;
+            margin: 20px auto;
+        }
+
+
+        #box2 p {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+       #mydef {
+            text-align: center;
+        }
+
+
+
+        .score {
+            font-size: 50px;
+            color: #3c8dbc;
+        }
+
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+
+
+      <ol class="breadcrumb">
+        <li><a href="{% url 'logout' %}"><i class="fa fa-dashboard"></i> 退出登录</a></li>
+
+      </ol>
+    </section>
+    <!-- 考试须知 -->
+
+
+<div id="mydef">
+    <h1 class="score">考试须知</h1>
+
+</div>
+
+<div id="box1">
+<p> 1.考试时间为20分钟，答完题可以点击“提交”，超出时间则自动交卷；</p>
+<p> 2.考试采用100制，题型为25道单项选择，每题2分，10道判断题，每题2分，10道多选题，每题3分，多选题少选多选均不得分；</p>
+<p> 3.每人每次只有一次考试机会，多次考试以最早成绩为准；</p>
+<p> 4.试卷列表栏目下有“我要训练”模块，考生可进行模拟训练，不计分。</p>
+
+</div>
+    <div id="box2">
+      <a   href="{% url 'paper_list' %}">
+    <input class="btn btn-green"   value="开始考试  " />
+      </a>
+</div>
+  <section class="content-header">
+
+
+    </section>
+{% endblock %}
+
+{% block script %}
+    <!-- DataTables -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+
+    <!-- SlimScroll -->
+    <script src="{% static 'plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'plugins/fastclick/fastclick.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/app.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+
+    <!-- DataTable buttons -->
+    <script src="{% static  'plugins/datatables/button/dataTables.buttons.min.js'%}"></script>
+    <script src="{% static  'plugins/datatables/button/buttons.bootstrap.min.js'%}"></script>
+    <!-- buttons 打印功能 -->
+    <script src="{% static  'plugins/datatables/button/buttons.print.min.js'%}"></script>
+    <!-- buttons 导出功能 -->
+    <script src="{% static  'plugins/datatables/button/buttons.html5.min.js'%}"></script>
+    <script src="{% static  'plugins/datatables/button/jszip.min.js'%}"></script>
+
+
+{% endblock %}

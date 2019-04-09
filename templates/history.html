@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}历史成绩{% endblock %}
+
+{% block css %}
+
+<!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        历史成绩
+
+      </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+    <div class="row">
+    <div class="col-xs-12">
+
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">历史成绩</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="assets_table" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>序号</th>
+              <th>姓名</th>
+              <th>单位</th>
+              <th>成绩</th>
+              <th>考试时间</th>
+              <th>试卷名</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+                {% for his in hiss %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ his.nickname }}</td>
+                    {% if his.danwei == 'tengxun' %}
+                      <td><a>腾讯</a></td>
+                    {% elif his.danwei == 'ali' %}
+                      <td><a>阿里</a></td>
+                     {% endif %}
+
+                  <td>{{ his.total }}</td>
+                  <td>{{ his.add_time }}</td>
+
+                    {% if his.paper_id == 3 %}
+                      <td><a>随机考试</a></td>
+                    {% elif his.paper_id == 2  %}
+                        <td><a>试题二</a></td>
+                    {% elif his.paper_id == 1  %}
+                        <td><a>试题一</a></td>
+                     {% endif %}
+                </tr>
+                {% empty %}
+                  <tr>没有数据！</tr>
+                {% endfor %}
+
+            </tbody>
+            <tfoot>
+            <tr>
+              <th>序号</th>
+              <th>姓名</th>
+              <th>单位</th>
+              <th>成绩</th>
+              <th>考试时间</th>
+              <th>试卷名</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    <!-- DataTables -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+
+    <!-- SlimScroll -->
+    <script src="{% static 'plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'plugins/fastclick/fastclick.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/app.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+
+    <!-- DataTable buttons -->
+    <script src="{% static  'plugins/datatables/button/dataTables.buttons.min.js'%}"></script>
+    <script src="{% static  'plugins/datatables/button/buttons.bootstrap.min.js'%}"></script>
+    <!-- buttons 打印功能 -->
+    <script src="{% static  'plugins/datatables/button/buttons.print.min.js'%}"></script>
+    <!-- buttons 导出功能 -->
+    <script src="{% static  'plugins/datatables/button/buttons.html5.min.js'%}"></script>
+    <script src="{% static  'plugins/datatables/button/jszip.min.js'%}"></script>
+    <!-- buttons 生成PDF功能 -->
+{#    <script src="{% static  'plugins/datatables/button/pdfmake.min.js'%}"></script>#}
+{#    <script src="{% static  'plugins/datatables/button/vfs_fonts.js'%}"></script>#}
+
+    <!-- page script -->
+    <script>
+      $(function () {
+        $('#assets_table').DataTable({
+          "paging": true,       <!-- 允许分页 -->
+          "lengthChange": true, <!-- 允许改变每页显示的行数 -->
+          "searching": true,    <!-- 允许内容搜索 -->
+          "ordering": true,     <!-- 允许排序 -->
+          "info": true,         <!-- 显示信息 -->
+          "autoWidth": false,    <!-- 固定宽度 -->
+          language:{
+              'sSearch':"搜索",
+              "info":           "显示 _START_ 到 _END_ 页共 _TOTAL_ 条",
+              "infoEmpty":      "显示 0 到 0 页共 0 条",
+              "lengthMenu":     "显示 _MENU_ 条",
+              "zeroRecords":    "没有匹配项",
+          "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "下页",
+              "previous":   "上页"
+          },
+          },
+          dom: '<"pull-left"B>ft<"pull-left"i>p',
+        buttons: [
+            {
+                text: '<i class="glyphicon glyphicon-copy" title="复制"></i>',
+                extend: 'copy'
+            }, {
+                text: '<i class="glyphicon glyphicon-print" title="打印"></i>',
+                extend: 'print'
+            }, {
+                text: '<i class="glyphicon glyphicon-list-alt" title="导出csv"></i>',
+                extend: 'csv'
+            },
+        ],
+
+
+
+
+
+        });
+        $.fn.dataTable.ext.buttons.reload = {
+    text: '<i class="glyphicon glyphicon-refresh"></i>',
+    action: function ( e, dt, node, config ) {
+        dt.ajax.reload();
+    }
+};
+
+
+      });
+
+    </script>
+{% endblock %}

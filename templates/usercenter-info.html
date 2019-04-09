@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}个人中心{% endblock %}
+{% block css %}
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+
+{% endblock %}
+
+{% block content %}
+  <style>
+
+        #box3 {
+            width: 250px;
+            margin: 20px auto;
+                        text-align: center;
+
+        }
+
+      #mydef {
+            text-align: center;
+        }
+
+
+
+        .score {
+            font-size: 50px;
+            color: #3c8dbc;
+        }
+
+
+    </style>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+{#      <h1>#}
+{#        个人中心#}
+{##}
+{#      </h1>#}
+
+    </section>
+
+
+    <div class="container">
+        <div class="col-md-offset-4 col-md-4">
+            <form class="form-register"  method="post">
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                {% csrf_token %}
+
+
+                <div id="mydef">
+    <h1 class="score">个人中心</h1>
+
+</div>
+
+                <div class="form-group">
+                    {{ Edit_FormInput.nick_name.label_tag }}
+                    {{ Edit_FormInput.nick_name }}
+                </div>
+                <div class="form-group">
+                    {{ Edit_FormInput.birthday.label_tag }}
+                    {{ Edit_FormInput.birthday }}
+                </div>
+                <div class="form-group">
+                    {{ Edit_FormInput.gender.label_tag }}
+                    {{ Edit_FormInput.gender }}
+                </div>
+{#                <div class="form-group">#}
+{#                    {{ Edit_FormInput.leibie.label_tag }}#}
+{#                    {{ Edit_FormInput.leibie }}#}
+{#                </div>#}
+                <div class="form-group">
+                    {{ Edit_FormInput.danwei.label_tag }}
+                    {{ Edit_FormInput.danwei }}
+                </div>
+                <div class="form-group">
+                    {{ Edit_FormInput.zhiwu.label_tag }}
+                    {{ Edit_FormInput.zhiwu }}
+                </div>
+
+
+
+
+{#                <button type="reset" class="btn btn-default pull-left">重置</button>#}
+
+            </form>
+        </div>
+
+    </div>
+    <section class="content-header">
+            <div id="box3">
+                <button type="submit" class="btn btn-primary ">提交</button>
+            </div>
+    </section>
+
+  <section class="content-header">
+
+
+    </section>
+{% endblock %}

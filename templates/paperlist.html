@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}试卷列表{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+            <style>
+        #box1 {
+            width: 600px;
+            margin: 90px auto;
+        }
+
+        #box1 p {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        #box2 {
+            width: 250px;
+            margin: 20px auto;
+        }
+
+
+        #box2 p {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+       #mydef {
+            text-align: center;
+        }
+
+
+
+        .score {
+            font-size: 50px;
+            color: #3c8dbc;
+        }
+
+
+    </style>
+            <section class="content-header">
+
+<div id="mydef">
+    <h1 class="score">试卷列表</h1>
+
+</div>
+        </section>
+
+
+
+{#    <div class="begin"><p>成功进入试题页面</p></div>#}
+{#        <div id="box1">#}
+{#            {% for i in papers %}#}
+{#                <p>试卷名称：<a href="{% url 'paper' i.id %}">{{ i.name }}</a></p>#}
+{#            {% endfor %}#}
+{#        </div>#}
+
+    <div id="box1">
+
+
+    <div id="box2">
+      <a   href="{% url 'select' %}">
+    <input class="btn btn-green"   value="随机抽题  " />
+      </a>
+</div>
+            <div id="box2">
+      <a   href="{% url 'train' %}">
+    <input class="btn btn-green"   value="我要训练  " />
+      </a>
+</div>
+
+
+    </div>
+    </section>
+
+{% endblock %}
+

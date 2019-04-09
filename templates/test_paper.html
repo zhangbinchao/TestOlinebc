@@ -1,0 +1,321 @@
+{% extends 'base1.html' %}
+{% load staticfiles %}
+{% block title %}开始考试{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+
+ <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+        <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+
+    <script type="text/javascript">
+        function submitForm() {
+            {#document.getElementById("form1").submit();#}
+            {#var x=document.getElementsByName("form1");#}
+            form1.submit()
+        }
+    </script>
+    <style>
+        .begin {
+            width: 200px;
+            margin: 0 auto;
+            font: 20px/32px "Micorosoft Yahei";
+        }
+
+        #box1 {
+            width: 600px;
+            margin: 20px auto;
+        }
+
+        #box1 p {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        #box1 lable {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        #box3 {
+            width: 250px;
+            margin: 20px auto;
+        }
+                #box4{
+            width: 80%;
+            margin: 20px auto;
+                    float:left;
+        }
+        #box5{
+            width: 20%;
+            margin: 20px auto;
+                    float:right;
+        }
+        #box2 {
+            text-align: center;
+        }
+
+        .tj {
+            font-size: 16px;
+            margin: auto;
+        }
+       #mydef {
+            text-align: center;
+        }
+
+
+
+        .score {
+            font-size: 50px;
+            color: #3c8dbc;
+        }
+
+
+    h1 {
+	font-family:"微软雅黑";
+	font-size:40px;
+	margin:20px 0;
+	border-bottom:solid 1px #ccc;
+	padding-bottom:20px;
+	letter-spacing:2px;
+}
+.time-item strong {
+	background:#C71C60;
+	color:#fff;
+	line-height:49px;
+	font-size:36px;
+	font-family:Arial;
+	padding:0 10px;
+	margin-right:10px;
+	border-radius:5px;
+	box-shadow:1px 1px 3px rgba(0,0,0,0.2);
+}
+#day_show {
+	float:left;
+	line-height:49px;
+	color:#c71c60;
+	font-size:32px;
+	margin:0 10px;
+	font-family:Arial,Helvetica,sans-serif;
+}
+.item-title .unit {
+	background:none;
+	line-height:49px;
+	font-size:24px;
+	padding:0 10px;
+	float:left;
+}
+
+
+
+
+    </style>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript">
+        function submitForm() {
+            document.getElementById("form1").submit();
+        }
+
+var intDiff = parseInt(1200); //倒计时总秒数量
+function timer(intDiff) {
+    window.setInterval(function() {
+        var day = 0,
+            hour = 0,
+            minute = 0,
+            second = 0; //时间默认值
+        if (intDiff > 0) {
+            day = Math.floor(intDiff / (60 * 60 * 24));
+            hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+            minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+            second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+        }
+        if (minute <= 9) minute = '0' + minute;
+        if (second <= 9) second = '0' + second;
+        $('#day_show').html(day + "天");
+        $('#hour_show').html('<s id="h"></s>' + hour + '时');
+        $('#minute_show').html('<s></s>' + minute + '分');
+        $('#second_show').html('<s></s>' + second + '秒');
+        intDiff--;
+        if (intDiff ==0) {submitForm()}
+
+    }, 1000);
+}
+$(function() {
+    timer(intDiff);
+});
+
+
+</script>
+
+    <section class="content-header">
+
+<div id="mydef">
+    <h1 class="score">成功进入试题页面</h1>
+
+</div>
+{#    <div class="begin"><p>成功进入试题页面</p></div>#}
+</section>
+
+<div id="box4">
+
+    {% if request.user.is_authenticated %}
+        <session>
+            <form action="" method="POST" id="form1" name="hhhhh">
+                {% csrf_token %}
+                <p>{{ question_id_list}}</p>
+                {% for question_now in question %}
+
+                    <div id="box1">
+                        {% if question_now.questionType == 'xz' %}
+                        <from id="{{ question_now.id }}">
+
+                            <p>{{ forloop.counter }}.({{ "选择" }}) {{ question_now.content }}</p>{# question_now.questionType #}
+                            <input type="hidden" value="{{ question_now.id }}">
+                            <label><input name="{{ question_now.id }}" type="radio"
+                                          value="A"/>{{ question_now.choice_a }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}" type="radio"
+                                          value="B"/>{{ question_now.choice_b }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}" type="radio"
+                                          value="C"/>{{ question_now.choice_c }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}" type="radio"
+                                          value="D"/>{{ question_now.choice_d }}
+                            </label><br/>
+                        </from>
+                        {% endif %}
+                        {% if question_now.questionType == 'mxz' %}
+                            {% if question_now.choice_num == 4 %}
+                            <from id="{{ question_now.id }}" >
+                            <p>{{ forloop.counter }}.({{ "多选" }}) {{ question_now.content }}</p>
+                            <input type="hidden" value="{{ question_now.id }}">
+                            <label><input name="{{ question_now.id }}_1" type="checkbox"
+                                          value="A" />{{ question_now.choice_a }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_2" type="checkbox"
+                                          value="B"/>{{ question_now.choice_b }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_3" type="checkbox"
+                                          value="C" />{{ question_now.choice_c }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_4" type="checkbox"
+                                          value="D" />{{ question_now.choice_d }}
+                            </label><br/>
+                           </from>
+                          {% endif %}
+                        {% if question_now.choice_num == 5 %}
+                        <from id="{{ question_now.id }}" >
+                            <p>{{ forloop.counter }}.({{ "多选" }}) {{ question_now.content }}</p>
+                            <input type="hidden" value="{{ question_now.id }}">
+                            <label><input name="{{ question_now.id }}_1" type="checkbox"
+                                          value="A" />{{ question_now.choice_a }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_2" type="checkbox"
+                                          value="B"/>{{ question_now.choice_b }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_3" type="checkbox"
+                                          value="C" />{{ question_now.choice_c }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_4" type="checkbox"
+                                          value="D" />{{ question_now.choice_d }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_5" type="checkbox"
+                                          value="E" />{{ question_now.choice_e }}
+                            </label><br/>
+                        </from>
+                        {% endif %}
+                        {% if question_now.choice_num == 6 %}
+                        <from id="{{ question_now.id }}" >
+                            <p>{{ forloop.counter }}.({{ "多选" }}) {{ question_now.content }}</p>
+                            <input type="hidden" value="{{ question_now.id }}">
+                            <label><input name="{{ question_now.id }}_1" type="checkbox"
+                                          value="A" />{{ question_now.choice_a }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_2" type="checkbox"
+                                          value="B"/>{{ question_now.choice_b }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_3" type="checkbox"
+                                          value="C" />{{ question_now.choice_c }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_4" type="checkbox"
+                                          value="D" />{{ question_now.choice_d }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_5" type="checkbox"
+                                          value="E" />{{ question_now.choice_e }}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}_6" type="checkbox"
+                                          value="F"/>{{ question_now.choice_f }}
+                            </label><br/>
+                        </from>
+                        {% endif %}
+
+                        {% endif %}
+                        {% if question_now.questionType == 'pd' %}
+                        <from id="{{ question_now.id }}">
+
+                            <p>{{ forloop.counter }}.({{ "判断" }}) {{ question_now.content }}</p>
+                            <input type="hidden" value="{{ question_now.id }}">
+                            <label><input name="{{ question_now.id }}" type="radio"
+                                          value="True"/>{{ "对" }}{# question_now.boolt #}
+                            </label><br/>
+                            <label><input name="{{ question_now.id }}" type="radio"
+                                          value="False"/>{{ "错" }}{# question_now.boolf #}
+                            </label><br/>
+                        </from>
+                        {% endif %}
+
+                    </div>
+
+                    <hr/>
+                {% endfor %}
+
+            </form>
+
+
+                </session>
+
+
+    {% else %}
+        <div>
+            <script type="text/javascript">
+                alert("请登录！！！");
+            </script>
+            <h1> 亲，想做题，先登录奥！</h1>
+
+        </div>
+
+    {% endif %}
+
+
+
+</div>
+
+    <div id="box5">
+
+<h1>考试剩余时间</h1>
+<div class="time-item">
+{#    <span id="day_show">0天</span>#}
+{#    <strong id="hour_show">0时</strong>#}
+    <strong id="minute_show">0分</strong>
+    <strong id="second_show">0秒</strong>
+</div>
+</div>
+
+         <div id="box3">
+{#                    <input name="tijiao" type="submit" value="提交" onclick="submitForm()" id="tj" class="tj"/>#}
+                        <input class="btn btn-green"   value="交卷  " onclick="submitForm()"/>
+{#                        <input class="btn btn-green"   value="交卷"  type="submit" />#}
+
+                </div>
+  <section class="content-header">
+
+
+    </section>
+
+{% endblock %}
