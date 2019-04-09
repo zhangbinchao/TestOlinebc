@@ -5,3 +5,9 @@
 效果如图：
 ![登陆](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/1.PNG)
 ![注册](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/2.PNG)
+![index](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/index.PNG)
+![info](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/info.PNG)
+![paperlist](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/paperlist.PNG)
+![score](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/score.PNG)
+![test](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/test.PNG)
+![testfinal](https://github.com/zhangbinchao/TestOlinebc/blob/master/pic/testfinal.PNG)
